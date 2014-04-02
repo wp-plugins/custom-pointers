@@ -21,8 +21,8 @@
 				}, 1000 );
            	}
 
-            // Quick add collection
-            $( document ).on( 'keypress', '.wpcp-new-collection', WPCP_Create.quickAddCollection );
+            if ( WPCP_Vars.active == 'yes' )
+                $( document ).on( 'keypress', '.wpcp-new-collection', WPCP_Create.quickAddCollection ); // Quick add collection
 
             // Toggle on/off collection dropdown
             $( document ).on( 'click', '.wpcp-add-collection', function(){
@@ -135,6 +135,8 @@
 		},
 
         quickAddCollection: function (e) {
+            if ( WPCP_Vars.active != 'yes' ) return;
+
             var that = $( this ),
                 code = e.keyCode || e.which; 
 

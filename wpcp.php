@@ -5,11 +5,11 @@ Plugin URI: http://www.theportlandcompany.com/product/custom-pointers-plugin-for
 Description: The Custom Pointers Plugin for WordPress introduces an administrative interface that enables Administrators to create a "Collection" custom "Pointers" quickly, easily and in an organized fashion. Fundamentally; it's a way to create interactive tutorials for your WordPress Users in the back end. This is built atop the "Feature Pointers" feature that was introduced in WordPress 3.3.
 Author: The Portland Company, Designed by Spencer Hill, Coded by Redeye Adaya
 Author URI: http://www.theportlandcompany.com
-Version: 0.9.11
+Version: 0.9.12
 Copyright: 2014 The Portland Company 
-License: Private
+License: GPLv3
+License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 */
-
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
@@ -31,7 +31,7 @@ class WP_Custom_Pointers {
     /**
      * @var string
      */
-    public $version = '0.9.1';
+    public $version = '0.9.0';
 
     /**
      * @var string
@@ -52,6 +52,11 @@ class WP_Custom_Pointers {
      * @var string
      */
     public $current_screen;
+
+    /**
+     * @var string
+     */
+    public $plugin_name = 'Custom Pointers Plugin for WordPress';
 
     function __construct() {
         // Define WP_Custom_Pointers constant
@@ -79,6 +84,10 @@ class WP_Custom_Pointers {
 
         register_activation_hook( __FILE__, array( $this, 'install') );
         register_deactivation_hook( __FILE__, array( $this, 'uninstall') );
+        register_deactivation_hook( __FILE__, array( $this, 'deactivate_cron') );
+
+        // Include required files
+        add_action( 'plugins_loaded', array( $this, 'includes' ));
     }
 
     /**
@@ -116,9 +125,6 @@ class WP_Custom_Pointers {
         $ajax = new WPCP_Ajax();
         $this->pointer_obj = WPCP_Pointer::getInstance();
         $this->collection_obj = WPCP_Collection::getInstance();
-
-        // Include required files
-        $this->includes();
     }
 
     /**
@@ -132,13 +138,34 @@ class WP_Custom_Pointers {
      * Uninstall
      */
     public function uninstall() {
-        delete_option( '_wpcp_version' );
-        delete_option( '_wpcp_preloads_ran' );
+        $options = array(  
+                '_wpcp_version',
+                '_wpcp_preloads_ran',
+                '_wpcp_term_id_self',
+                '_wpcp_status',
+                '_wpcp_sk'
+            );
 
-        // Delete our pointers
-        $pointers = $this->pointer_obj->get_pointers( 'edit-wpcp_pointer', 'edit.php' );
-        foreach ( $pointers as $pointer ) {
-            wp_delete_post( $pointer->post_id, true );
+        foreach ( $options as $option ) {
+            delete_option( $option );
+        }
+
+        global $wpdb;
+
+        $sql = "SELECT `ID` FROM {$wpdb->posts} WHERE `post_type` = '%s'";
+        $pointers = $wpdb->get_results( $wpdb->prepare( $sql, 'wpcp_pointer' ) );
+
+        foreach( $pointers as $pointer ) {
+            wp_delete_post( $pointer->ID );
+        }
+
+        $sql = "SELECT {$wpdb->terms}.term_id FROM {$wpdb->terms}";
+        $sql .= " JOIN {$wpdb->term_taxonomy} ON {$wpdb->terms}.term_id = {$wpdb->term_taxonomy}.term_id";
+        $sql .= " WHERE {$wpdb->term_taxonomy}.taxonomy = '%s'";
+        $collections = $wpdb->get_results( $wpdb->prepare( $sql, 'wpcp_collection' ) );
+
+        foreach( $collections as $collection ) {
+            wp_delete_term( $collection->term_id, 'wpcp_collection' );
         }
     }
 
@@ -161,6 +188,7 @@ class WP_Custom_Pointers {
         // Enqueue scripts
         wp_enqueue_script( 'wp-pointer' );
         wp_enqueue_script( 'jquery-ui-core' );
+        wp_enqueue_script( 'wpcp_validate', plugins_url( 'assets/js/jquery.validate.min.js', __FILE__ ) );
         wp_enqueue_script( 'wpcp-mousetrap', plugins_url( 'assets/js/mousetrap.min.js', __FILE__ ) );
         wp_enqueue_script( 'wpcp-cookie', plugins_url( 'assets/js/jquery.cookie.min.js', __FILE__ ) );
         wp_enqueue_script( 'wpcp-admin', plugins_url( 'assets/js/admin.js', __FILE__ ), '', '', true );
@@ -178,7 +206,8 @@ class WP_Custom_Pointers {
             'pointers_raw' => $this->collection_obj->get_raw(),
             'screen_id' => $this->current_screen->id,
             'page' => $this->get_page(),
-            'splash_dismissed' => get_user_meta( get_current_user_id(), '_wpcp_splash_dismissed' )
+            'splash_dismissed' => get_user_meta( get_current_user_id(), '_wpcp_splash_dismissed' ),
+            'active' => wpcp_is_active() ? 'yes' : 'no'
         ) );
 
         // Enqueue styles
@@ -188,8 +217,10 @@ class WP_Custom_Pointers {
         wp_enqueue_style( 'wpcp-create', plugins_url( 'assets/css/create.css', __FILE__ ) );
         wp_enqueue_style( 'wpcp-pointer', plugins_url( 'assets/css/pointer.css', __FILE__ ) );
 
-        // Add help tab
-        $this->contextual_help();
+        if ( wpcp_is_active() ) {
+            // Add help tab
+            $this->contextual_help();
+        }
     }
 
     /**
@@ -199,6 +230,7 @@ class WP_Custom_Pointers {
      */
     public function includes() {
         require_once dirname( __FILE__ ) . '/includes/html.php';
+        require_once dirname( __FILE__ ) . '/includes/functions.php';
         require_once dirname( __FILE__ ) . '/includes/preloads.php';
     }
 
@@ -209,8 +241,7 @@ class WP_Custom_Pointers {
      */
     public function admin_menu() {
         $capability = 'edit_posts'; //minimum level: editor
-
-
+        
         global $submenu;
         // Disable Add New tab
         unset( $submenu['edit.php?post_type=wpcp_pointer'][10] );
@@ -237,7 +268,7 @@ class WP_Custom_Pointers {
 
         echo '<div class="wrap wpcp">';
 
-        if ( $get['page'] == 'wpcp' ) {
+        if ( $get['page'] == 'wpcp_settings' ) {
             include_once dirname( __FILE__ ) . '/views/settings.php';
         } 
         echo '</div>';
@@ -472,6 +503,42 @@ class WP_Custom_Pointers {
             return $returned_object->version;
         } else {
             return false;
+        }
+    }
+
+    /**
+     * Activate Cron
+     *
+     * @return void
+     */
+    public function activate_cron() {
+        if ( !wp_next_scheduled( 'wpcp_cron' ) ) {
+            wp_schedule_event( time(), 'twicedaily', 'wpcp_cron' );
+        }
+    }
+
+    /**
+     * Deactivate Cron
+     *
+     * @return void
+     */
+    public function deactivate_cron() {
+        if( false !== ( $time = wp_next_scheduled( 'wpcp_cron' ) ) ) {
+            wp_unschedule_event( $time, 'wpcp_cron' );
+        }
+    }
+
+    /**
+     * Verify
+     *
+     * @return void
+     */
+    public function verify() {
+        $res = wpcp_verify();
+
+        if ( !$res ) {
+            delete_option( '_wpcp_status' );
+            wpcp_deactivate();
         }
     }
 

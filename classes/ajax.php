@@ -19,6 +19,9 @@ class WPCP_Ajax {
 
         add_action( 'wp_ajax_wpcp_splash', array( $this, 'splash') );
         add_action( 'wp_ajax_wpcp_dismiss_splash', array( $this, 'dismiss_splash') );
+
+        add_action( 'wp_ajax_wpcp_activate', array( $this, 'activate' ) );
+        add_action( 'wp_ajax_wpcp_deactivate', array( $this, 'deactivate' ) );
     }
 
     /**
@@ -171,7 +174,7 @@ class WPCP_Ajax {
                 'error' => $result
             ));
 
-        exit;
+            exit;
         }
 
         echo json_encode(array(
@@ -208,6 +211,85 @@ class WPCP_Ajax {
 
         echo json_encode(array(
             'success' => true
+        ));
+
+        exit;
+    }
+
+    /**
+     * Activate this plugin
+     *
+     * @return json object
+     */
+    public function activate() {
+        check_ajax_referer( 'wpcp_nonce' );
+
+        global $wpcp;
+
+        // Check if serial key is valid
+        $res = wpcp_is_valid_serial_key( $_POST['serial_key'] );
+        if ( !$res['success'] ) {
+            echo json_encode(array(
+                'success' => false,
+                'message' => $res['message']
+            ));
+
+            exit;
+        }
+
+        // Check if item names match
+        if ( $res['item_name'] != $wpcp->plugin_name ) {
+            echo json_encode(array(
+                'success' => false,
+                'message' => 'The serial key your using is not for '.$wpcp->plugin_name
+            ));
+
+            exit;
+        }
+
+        // Register this IP
+        $res = wpcp_register_server_info( $_POST['serial_key'] );
+        if ( !$res['success'] ) {
+            echo json_encode(array(
+                'success' => false,
+                'message' => $res['message']
+            ));
+
+            exit;
+        }
+
+        update_option( '_wpcp_status', 'active' );
+        update_option( '_wpcp_sk', $_POST['serial_key'] );
+
+        echo json_encode(array(
+            'success' => true,
+        ));
+
+        exit;
+    }
+
+    /**
+     * Dectivate this plugin
+     *
+     * @return json object
+     */
+    public function deactivate() {
+        check_ajax_referer( 'wpcp_nonce' );
+
+        $res = wpcp_deactivate( $_POST['serial_key'] );
+        if ( !$res['success'] ) {
+            echo json_encode(array(
+                'success' => false,
+                'message' => $res['message']
+            ));
+
+            exit;
+        }
+
+        delete_option( '_wpcp_status' );
+
+        echo json_encode(array(
+            'success' => true,
         ));
 
         exit;

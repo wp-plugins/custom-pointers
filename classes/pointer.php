@@ -26,12 +26,14 @@ class WPCP_Pointer {
      * @param string $page_name
      * @return array $pointers
      */
-    public function get_pointers( $screen_id, $page_name ) {
+    public function all( $screen_id, $page_name ) {
         global $wpdb;
 
         $sql = "SELECT PointerID.meta_value AS 'pointer_id', Target.meta_value AS 'target', Edge.meta_value AS 'edge',";
         $sql .= " Align.meta_value AS 'align', Screen.meta_value AS 'screen_id',";
-        $sql .= " OrderX.meta_value AS 'order', `ID` AS 'post_id', `post_content`, `post_title`, `term_taxonomy_id` AS 'collection'";
+        $sql .= " OrderX.meta_value AS 'order', `ID` AS 'post_id', `post_content`, `post_title`";
+        if ( wpcp_is_active() ) 
+            $sql .= " ,`term_taxonomy_id` AS 'collection'";
         $sql .= " FROM {$wpdb->posts}";
         $sql .= " JOIN {$wpdb->postmeta} PointerID ON {$wpdb->posts}.ID = PointerID.post_id"; 
         $sql .= " JOIN {$wpdb->postmeta} Target ON {$wpdb->posts}.ID = Target.post_id"; 
@@ -40,7 +42,8 @@ class WPCP_Pointer {
         $sql .= " JOIN {$wpdb->postmeta} Screen ON {$wpdb->posts}.ID = Screen.post_id"; 
         $sql .= " JOIN {$wpdb->postmeta} Page ON {$wpdb->posts}.ID = Page.post_id"; 
         $sql .= " JOIN {$wpdb->postmeta} OrderX ON {$wpdb->posts}.ID = OrderX.post_id"; 
-        $sql .= " JOIN {$wpdb->term_relationships} ON {$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id";
+        if ( wpcp_is_active() )
+            $sql .= " JOIN {$wpdb->term_relationships} ON {$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id";
         $sql .= " WHERE {$wpdb->posts}.post_type = '%s'";
         $sql .= " AND PointerID.meta_key = '%s'";
         $sql .= " AND Target.meta_key = '%s'";
