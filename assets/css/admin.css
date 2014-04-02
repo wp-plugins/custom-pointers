@@ -14,6 +14,15 @@
 	content: "";
 }
 
+/* Admin Notices */
+.ptp-nag-close {
+    float: right;
+}
+.share li {
+    float: left;
+    margin: 0 3px;
+}
+
 /* Admin menu */
 #wp-admin-bar-wpcp-parent > a {
 	display: block;
