@@ -4,14 +4,19 @@ Donate Link: http://www.theportlandcompany.com/product/custom-pointers-plugin-fo
 Tags: pointers, awesome wordpress plugin, best wordpress plugin, custom pointers, feature pointers, interactive, plugin training system, pointer collection, pointers, training, training plugin, training software, tutorial, tutorial plugin, tutorials, wordpress, wordpress interactive plugin, wordpress interactive tutorial plugin, wordpress plugin, wordpress training plugin, wordpress training softawre, wordpress training system, wordpress tutorial, wordpress tutorial plugin, tutorial making plugin, wordpress tutorial making plugin, wordpress training plugins
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 0.9.3
+Stable tag: 0.9.4
 License: GPL 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-=== Description ===
-The WP Custom Pointers plugin introduces an administrative interface that allows users to create a Collection custom Pointers quickly and easily in an organized fashion. Fundamentally, it is a way to allow its users the ability to create in-site training tutorials for their variety of purposes. This is built atop the Feature Pointers feature that was introduced in WordPress 3.3.
+Easily create interactive tutorials for your WordPress Users and it's Plugins and Themes.
 
-=== Screenshots ===
+== Description ==
+The Custom Pointers Plugin for WordPress introduces an administrative interface that enables Administrators to create a "Collection" custom "Pointers" quickly, easily and in an organized fashion. Fundamentally; it's a way to create interactive tutorials for your WordPress Users in the back end. This is built atop the "Feature Pointers" feature that was introduced in WordPress 3.3.
+
+== Frequently Asked Questions ==
+[You can find our FAQ section on our website.](http://www.theportlandcompany.com/2013/08/photo-to-product-importer-extension-for-woocommerce-documentation/)
+
+== Screenshots ==
 1. Auto and Manual toggle.
 2. Auto mode. Hovering on any element will auto-detect the selector for you. 
 3. Manual mode. If the selector is very complex, there's a manual mode for that.
