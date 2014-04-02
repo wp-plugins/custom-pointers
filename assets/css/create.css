@@ -224,7 +224,7 @@
 	margin-right: 10px;
 }
 .wpcp-loading {
-	background: url(../images/loader.gif) no-repeat;
+	background: url(../../../../../wp-admin/images/wpspin_light.gif) no-repeat;
 	line-height: 0; 
     font-size: 0;
     color: transparent; 

@@ -5,7 +5,7 @@ Plugin URI: http://www.theportlandcompany.com/product/custom-pointers-plugin-for
 Description: The Custom Pointers Plugin for WordPress introduces an administrative interface that enables Administrators to create a "Collection" custom "Pointers" quickly, easily and in an organized fashion. Fundamentally; it's a way to create interactive tutorials for your WordPress Users in the back end. This is built atop the "Feature Pointers" feature that was introduced in WordPress 3.3.
 Author: The Portland Company, Designed by Spencer Hill, Coded by Redeye Adaya
 Author URI: http://www.theportlandcompany.com
-Version: 0.9.12
+Version: 0.9.13
 Copyright: 2014 The Portland Company 
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
@@ -61,9 +61,6 @@ class WP_Custom_Pointers {
     function __construct() {
         // Define WP_Custom_Pointers constant
         define( 'WPCP_VERSION', $this->version );
-
-        // Get remote version
-        $this->remote_version = $this->get_remote_version();
 
         // Admin notices
         add_action( 'admin_notices', array( $this, 'admin_notices' ) );
@@ -259,22 +256,6 @@ class WP_Custom_Pointers {
     }
 
     /**
-     * Render admin pages
-     *
-     * @return string
-     */
-    public function admin_page_handler() {
-        $get = $_GET;
-
-        echo '<div class="wrap wpcp">';
-
-        if ( $get['page'] == 'wpcp_settings' ) {
-            include_once dirname( __FILE__ ) . '/views/settings.php';
-        } 
-        echo '</div>';
-    }
-
-    /**
      * Add admin bar menu
      *
      * @return void
@@ -323,7 +304,7 @@ class WP_Custom_Pointers {
      */
     public function register_post_type() {
         $labels = array(
-            'name' => 'Pointers',
+            'name' => 'Custom Pointers',
             'singular_name' => 'Pointer',
             'add_new' => 'Add New',
             'add_new_item' => 'Add New Pointer',
@@ -335,7 +316,7 @@ class WP_Custom_Pointers {
             'not_found' =>  'No pointers found',
             'not_found_in_trash' => 'No pointers found in Trash', 
             'parent_item_colon' => '',
-            'menu_name' => 'Pointers'
+            'menu_name' => 'Custom Pointers'
         );
 
           $args = array(
@@ -457,53 +438,119 @@ class WP_Custom_Pointers {
      *
      * @return void
      */
-    public function admin_notices() { 
-        ?>
-
-        <?php if ( get_bloginfo( 'version' ) < '3.3' ) : ?>
-            <div class="error">
-                <p><?php _e( 'This plugin only works for version 3.3 and up. Please upgrade to the latest version of Wordpress first!', 'wpcp' ); ?></p>
-            </div>
-        <?php endif; ?>
+    public function admin_notices() {
+    
+		if ( $_GET['dismiss_coupon_reminder_wpcp'] == true ) {
+		    update_user_meta( get_current_user_id(), 'dismiss_coupon_reminder_wpcp', true );
+		    return;
+		}
+		$dismiss_coupon_reminder_wpcp = get_user_option( 'dismiss_coupon_reminder_wpcp' );
+		
+		
+		if ( get_current_screen()->parent_file == 'edit.php?post_type=wpcp_pointer' ) {
+    
+            if ( get_bloginfo( 'version' ) < '3.3' ) { ?>
+                <div class="error">
+                    <p><?php _e( 'You must be using WordPress 3.3 or later to utilize the Custom Pointers Plugin for WordPress.', 'wpcp' ); ?></p>
+                </div>
+            <?php
+            }
+            ?>
         
-        <?php if ( $this->remote_version && version_compare( $this->remote_version, WPCP_VERSION, '>' ) ) : ?>
+        <?php if ( !get_option( '_wpcp_status' ) && $dismiss_coupon_reminder_wpcp != 1 ) : ?>
             <div class="updated">
-                <p><?php _e( "There is a new version of WP Custom Pointers. We advise you to upgrade to the new version. Please go to this <a href='". admin_url() . 'plugins.php' ."'>page</a> to do so.", 'wpcp' ); ?></p>
+            
+                <table>
+                    <tr valign="top">
+                        <td style="width: 33%;">
+                            <h3>Premium Includes:</h3>
+                            <h4>Back End</h4>
+                            <ol>
+                                <li>Quick Add Collection</li>
+                            </ol>
+                            <h4>Front End</h4>
+                            <ol>
+                                <li>Restart Button</li>
+                                <li>Back Button</li>
+                            </ol>
+                        </td>
+                        <td style="width: 43%; ">
+                            <h3>Get a Coupon to Upgrade for $29!</h3>
+                            <ol>
+                                <li><a href='https://plus.google.com/109726560580019725502/about?hl=en&gl=us' target='_blank'>Leave a Review on Google &#187;</a></li>
+                                <li><a href='http://www.theportlandcompany.com/contact-and-support/' target='_blank'>Send an Message to Us for a Coupon &#187;</a></li>
+                                <li><a href='http://www.theportlandcompany.com/product/custom-pointers-plugin-for-wordpress/' target='_blank'>Get Your Coupon to Purchase for $29 &#187;</li>
+                            </ol>
+                            <a class='button-primary' target='_blank' href='http://www.theportlandcompany.com/product/custom-pointers-plugin-for-wordpress/'>Upgrade to Premium »</a>
+                        </td>
+                        <td>
+                            <h3>Coming Soon to Premium</h3>
+                            <ol>
+                                <li>Import/Export</li>
+                                <li>Visual Editor to embed Media</li>
+                                <li>Quick Delete</li>
+                                <li>Quick Re-Organize</li>
+                            </ol>
+                        </td>
+                    </tr>
+                    
+                </table>
+                <a class="ptp-nag-close button-secondary" href="<?php echo $_SERVER['REQUEST_URI']; ?>&dismiss_upgrade_reminder=true"><?php _e( 'Dismiss', 'ptp' ); ?></a>
+                
+                <br />
+                <br />
+                
             </div>
-        <?php endif; ?>
+            
+    		<link rel="canonical" href="http://www.theportlandcompany.com/product/custom-pointers-plugin-for-wordpress/">
+		
+            <!-- Social Media Sharing Utility -->
+    		<div class="updated">
+    		
+                <div id="fb-root"></div>
+                <script>(function(d, s, id) {
+                  var js, fjs = d.getElementsByTagName(s)[0];
+                  if (d.getElementById(id)) return;
+                  js = d.createElement(s); js.id = id;
+                  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+                  fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));</script>
+                <script type="text/javascript">
+                  reddit_url = "http://www.theportlandcompany.com/product/custom-pointers-plugin-for-wordpress/";
+                  reddit_title = "Custom Pointers Plugin for WordPress let's Adminstrator's create interactive tutorials to train Users. It's awesome!";
+                  reddit_newwindow = 1;
+                </script>
+    		
+    			<ul class="share clear">
+    				
+    				<?php if ( $args['mini'] ): ?>	
+    				<li><img src="<?php echo $this->plugin_uri . '/extensions/sm-share-buttons/images/share_icon.png'; ?>" alt="Share"/></li>
+    				<?php endif; ?>
+    				
+    				<li>Sharing this Plugin helps fund it! </li>
 
-        <?php
-    }
-
-    /** 
-     * Get our latet plugin version from the repo
-     *
-     * @return string The version number of the stable build in WP Plugins Directory
-     */
-    public function get_remote_version() {
-        $args = array(
-            'slug' => 'wp-custom-pointers',
-            'fields' => array(
-                'version' => true
-            )
-        );
-
-        $response = wp_remote_post(
-            'http://api.wordpress.org/plugins/info/1.0/',
-            array(
-                'body' => array(
-                    'action' => 'plugin_information',
-                    'request' => serialize((object)$args)
-                )
-            )
-        );
-
-        if ( !is_wp_error( $response ) ) {
-            $returned_object = unserialize( wp_remote_retrieve_body( $response ) );
-            return $returned_object->version;
-        } else {
-            return false;
-        }
+    				<li><div class="fb-share-button" data-href="http://www.theportlandcompany.com/product/custom-pointers-plugin-for-wordpress/" data-type="button_count"></div></li>
+    				<li><div class="g-plus" data-action="share" data-annotation="bubble" data-height="24"></div>
+</li>
+    				<li><script type="text/javascript" src="http://www.reddit.com/static/button/button1.js"></script></li>
+    				
+    			</ul>
+    			
+                <!-- Place this tag after the last share tag. -->
+                <script type="text/javascript">
+                  (function() {
+                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                    po.src = 'https://apis.google.com/js/platform.js';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                  })();
+                </script>
+    			
+    		</div>
+        <?php 
+        endif;
+        
+        } // End of get_current_screen()->parent_base == 'ptp_bulk_import'
+    
     }
 
     /**

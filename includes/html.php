@@ -240,14 +240,13 @@ function wpcp_contextual_help_content( $has_pointers = false, $finished = false 
 	<?php if ( !$has_pointers ) : ?>
 	
 	<div class="wpcp-help-content">
-		There are no Pointer Collections for this section. Contact the website administrator to request a custom Pointer Collection if you're in need of assistance and training.
+		<p><?php _e("There are no Pointer Collections for this section. Contact the website administrator to request a custom Pointer Collection if you're in need of assistance and training.", "wpcp"); ?></p>
 	</div>
 
 	<?php else : ?>
 	
 	<div class="wpcp-help-content"> 
-		<p> Lost? You are in the right place! Click the button below to start or restart tour for this page. </p>
-		<input type="button" class="wpcp-restart-collection button button-primary button-hero" value="<?php _e( 'Start Tour!', 'wpcp' ) ?>" />
+		<input type="button" class="wpcp-restart-collection button button-primary button-hero" value="<?php _e( 'Begin Tutorial »', 'wpcp' ) ?>" />
 	</div>
 	
 	<?php endif;
