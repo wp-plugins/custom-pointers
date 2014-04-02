@@ -5,7 +5,7 @@ Plugin URI: http://www.theportlandcompany.com/product/custom-pointers-plugin-for
 Description: Description: The Custom Pointers Plugin for WordPress introduces an administrative interface that allows users to create a "Collection" custom "Pointers" quickly and easily in an organized fashion. Fundamentally, it's a way to allow Administrative Users the ability to create interactive tutorials for their variety of purposes. This is built atop the "Feature Pointers" feature that was introduced in WordPress 3.3.
 Author: The Portland Company, Designed by Spencer Hill, Coded by Redeye Adaya
 Author URI: http://www.theportlandcompany.com
-Version: 0.9.2
+Version: 0.9.3
 Copyright: 2014 The Portland Company 
 License: GPL 2
 */
