@@ -33,7 +33,7 @@ class WPCP_Collection {
         $pointer_obj = WPCP_Pointer::getInstance();
 
         // Assign for later use
-        $this->pointers = $pointer_obj->get_pointers( $screen_id, $page_name );
+        $this->pointers = $pointer_obj->all( $screen_id, $page_name );
 
         // For public access
         $this->raw = $this->pointers;

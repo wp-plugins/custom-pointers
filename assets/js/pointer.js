@@ -5,16 +5,19 @@
 
     WPCP_Pointer = {
         init: function (e) {
-            // Restart collection
-            $( document ).on( 'click', '.wpcp-restart-collection', WPCP_Pointer.restart );
+            if ( WPCP_Vars.active == 'yes' )
+                $( document ).on( 'click', '.wpcp-restart-collection', WPCP_Pointer.restart ); // Restart collection
+
             // Hide pointers when help pane is shown
             $( '#contextual-help-link' ).on( 'click', WPCP_Pointer.togglePointers );
 
             // If no pointers for this page, bail out
             if ( !WPCP_Vars.pointers ) return;
 
-            // Turn off Create Mode OR Restart Collection first 
-            if ( $.cookie( 'wpcp-auto' ) == 1 || $.cookie( 'wpcp-manual' ) == 1 || $.cookie( 'wpcp-stopped' ) == 1 || WPCP_Vars.pointers.length < WPCP_Vars.pointers_raw.length ) return;
+            if ( WPCP_Vars.active == 'yes' ) {
+                // Turn off Create Mode OR Restart Collection first 
+                if ( $.cookie( 'wpcp-auto' ) == 1 || $.cookie( 'wpcp-manual' ) == 1 || $.cookie( 'wpcp-stopped' ) == 1 || WPCP_Vars.pointers.length < WPCP_Vars.pointers_raw.length ) return;
+            }
 
             // Delay it a little to allow elements added by javascripts are loaded first
             setTimeout(function(){
@@ -22,7 +25,10 @@
             
                 if ( $( '.wp-pointer' ).length > 1 ) {
                     // Hide all except the first 
-                    $( '.wp-pointer:not(:first)' ).hide().find( '.wp-pointer-buttons' ).prepend( '<a href="#" class="button-primary back" >Back</a>' );
+                    $( '.wp-pointer:not(:first)' ).hide();
+                    if ( WPCP_Vars.active == 'yes' )
+                        $( '.wp-pointer:not(:first)' ).find( '.wp-pointer-buttons' ).prepend( '<a href="#" class="button-primary back" >Back</a>' ); // Add back button
+
                     // Change all action to Next except the last
                     $( '.wp-pointer:not(:last)' ).find( '.close' ).addClass( 'button-primary next' ).text( 'Next' );
                 }
@@ -32,12 +38,16 @@
                 $( '.wp-pointer:last' ).find( '.close' ).removeClass( 'next' ).addClass( 'button-primary' ).text( 'Done' );
                 // Trigger next when next button is clicked
                 $( '.wp-pointer .next' ).on( 'click', WPCP_Pointer.next );
-                // Trigger back when back button is clicked
-                $( '.wp-pointer .back' ).on( 'click', WPCP_Pointer.back );
+
+                if ( WPCP_Vars.active == 'yes' )
+                    $( '.wp-pointer .back' ).on( 'click', WPCP_Pointer.back ); // Trigger back when back button is clicked
 
                 // If there are pointers displayed, change button text to 'Restart'
                 if ( $( '.wp-pointer' ).length )
                     $( '.wpcp-restart-collection' ).val( 'Restart Tour!' );
+
+                // Position pointer
+                WPCP_Pointer.position();
 
             }, 1000 );
         },
@@ -146,6 +156,8 @@
         restart: function (e) {
             e.preventDefault();
 
+            if ( WPCP_Vars.active != 'yes' ) return;
+
             var data = {
                         action: 'wpcp_restart_collection',
                         pointers: WPCP_Vars.pointers_raw,
@@ -178,11 +190,19 @@
         next: function (e) {
             $( '.wp-current-pointer').removeClass( 'wp-current-pointer' ).hide();
             $( '.wp-pointer').eq( ++WPCP_Vars.currentPointer ).addClass('wp-current-pointer').fadeIn();
+
+            // Position pointer
+            WPCP_Pointer.position();
         },
 
         back: function (e) {
+            e.preventDefault();
+            
             $( '.wp-current-pointer').removeClass( 'wp-current-pointer' ).hide();
             $( '.wp-pointer').eq( --WPCP_Vars.currentPointer ).addClass('wp-current-pointer').fadeIn();
+
+            // Position pointer
+            WPCP_Pointer.position();
         },
 
         togglePointers: function(e) {
@@ -198,6 +218,13 @@
                     $( '.wp-pointer' ).fadeIn();
                 }
             }
+        },
+
+        position: function(e) {
+            if ( $( '#wpadminbar' ).length )
+                $( 'body, html' ).animate({ scrollTop: $( '.wp-current-pointer').offset().top -48 }, 800 );
+            else 
+                $( 'body, html' ).animate({ scrollTop: $( '.wp-current-pointer').offset().top - 20 }, 800 );
         }
     }
 

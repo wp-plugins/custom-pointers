@@ -162,8 +162,8 @@
 				// Set order
 				$('.wpcp-overlay-form #wpcp-order option[value='+ pointer.order +']').attr('selected', 'selected');
 
-				// Inject delete link 
-				$('.wpcp-overlay-form .footer').prepend( '<a class="wpcp-delete" data-id="'+ pointer.post_id +'" href="#">Delete</a>' ); 
+				if ( WPCP_Vars.active == 'yes' )
+					$('.wpcp-overlay-form .footer').prepend( '<a class="wpcp-delete" data-id="'+ pointer.post_id +'" href="#">Delete</a>' ); // Inject delete link 
 
 				// Change button text to Update				
 				$('.wpcp-overlay-form .button-primary').val( 'Update' ); 
@@ -174,8 +174,8 @@
 				// Change action to wpcp_update_pointer
 				$('.wpcp-overlay-form #action').val( 'wpcp_update_pointer' ); 
 
-				// Bind delete event to our delete anchor
-				$('.wpcp-overlay-form').on('click', '.wpcp-delete', WPCP_Create_Auto.delete);
+				if ( WPCP_Vars.active == 'yes' )
+					$('.wpcp-overlay-form').on('click', '.wpcp-delete', WPCP_Create_Auto.delete); // Bind delete event to our delete anchor
 
 				// Disable Align values based the selected Edge value
 				if ( $( '#wpcp-edge' ).val() == 'left' || $( '#wpcp-edge' ).val() == 'right' ) {
@@ -269,6 +269,8 @@
 		},
 
 		delete: function (e) {
+			if ( WPCP_Vars.active != 'yes' ) return;
+
 			// Donnot allow removal of overlay for now
 			WPCP_Vars.allowClose = false;
 			

@@ -53,3 +53,168 @@
 	padding-left: 28px;
 	padding-right: 28px;
 }
+
+/* Settings */
+#icon-wpcp {
+	background: url(../images/sprite.png) 0 0 no-repeat;
+}
+.wpcp h2 {
+	margin: 4px 0 25px;
+}
+#wpcp-cols {
+	position: relative;
+	clear: both;
+}
+#wpcp-col-right {
+	float: right;
+	width: 281px;
+}
+#wpcp-col-left {
+	margin-right: 300px;
+}
+.wpcp .wp-box {
+	background: none repeat scroll 0 0 #FFFFFF;
+	border: 1px solid #E1E1E1;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	position: relative;
+}
+.wpcp .wp-box .title {
+	background: #f1f1f1;
+	background-image: -webkit-gradient(linear, left bottom, left top, from(#ececec), to(#f9f9f9));
+	background-image: -webkit-linear-gradient(bottom, #ececec, #f9f9f9);
+	background-image: -moz-linear-gradient(bottom, #ececec, #f9f9f9);
+	background-image: -o-linear-gradient(bottom, #ececec, #f9f9f9);
+	background-image: linear-gradient(to top, #ececec, #f9f9f9);
+}
+.wpcp .wp-box .title h3 {
+	font-size: 15px;
+	font-weight: normal;
+	line-height: 1;
+	margin: 0;
+	padding: 7px 10px;
+	color: #464646;
+	border-bottom: #DFDFDF solid 1px;
+	box-shadow: 0 1px 0 #FFFFFF;
+	text-shadow: 0 1px 0 #FFFFFF;
+	font-family: Georgia,"Times New Roman","Bitstream Charter",Times,serif;
+}
+.wpcp table.wpcp-input {
+	border: 0 none;
+	background: #fff;
+	clear: none;
+}
+.wpcp table.wpcp-input tbody tr td.label {
+	width: 36%;
+	vertical-align: top;
+	background: #F9F9F9;
+	border-top: 1px solid #f0f0f0;
+	border-right: 1px solid #E1E1E1;
+}
+.wpcp table.wpcp-input > tbody > tr:first-child > td, 
+.wpcp table.wpcp-input > tbody > tr:first-child > td.label {
+	border-top: 0 none;
+}
+.wpcp table.wpcp-input tbody tr td.label label {
+	display: block;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 0;
+	margin: 0 0 6px;
+	color: #333;
+}
+.wpcp table.wpcp-input tbody tr td.label p {
+	display: block;
+	font-size: 12px;
+	padding: 0 !important;
+	margin: 3px 0 0 !important;
+	font-style: normal;
+	line-height: 16px;
+	color: #666;
+}
+.wpcp table.wpcp-input tbody tr td {
+	padding: 10px;
+	border-top: 1px solid #f5f5f5;
+	border-bottom: 0 none;
+}
+.wpcp table input#serial-key {
+	width: 80%;
+	box-sizing: border-box;
+	padding: 8px 10px;
+}
+.wpcp .wp-box .inner {
+	padding: 15px;
+}
+.wpcp h3.h2 {
+	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
+	font-size: 25px;
+	line-height: 29px;
+	padding: 5px 0 14px 0;
+	margin: 0;
+	font-weight: normal;
+}
+.wpcp .wp-box p {
+	margin-top: 0.5em;
+}
+input[type="submit"].wpcp-button {
+	border-radius: 3px;
+	border: #21759B solid 1px;
+	border-color: #21759B #21759B #1E6A8D;
+	background: #21759B;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#2A95C5), to(#21759B));
+	background-image: -webkit-linear-gradient(top, #2A95C5, #21759B);
+	background-image: -moz-linear-gradient(top, #2A95C5, #21759B);
+	background-image: -o-linear-gradient(top, #2A95C5, #21759B);
+	background-image: linear-gradient(to bottom, #2A95C5, #21759B);
+	color: #FFFFFF;
+	font-weight: normal;
+	text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+	font-size: 13px;
+	line-height: 1em;
+	padding: 6px 11px;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 1px 0 rgba(120, 200, 230, 0.5) inset;
+	cursor: pointer;
+	position: relative;
+	text-align: center;
+	text-decoration: none;
+	margin-right: 5px;
+}
+input[type="submit"].wpcp-button:hover {
+	background-color: #3b97c9;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#3b97c9), to(#246f99));
+	background-image: -webkit-linear-gradient(top, #3b97c9, #246f99);
+	background-image: -moz-linear-gradient(top, #3b97c9, #246f99);
+	background-image: -o-linear-gradient(top, #3b97c9, #246f99);
+	background-image: linear-gradient(to bottom, #3b97c9, #246f99);
+	border-color: #1B607F;
+	color: #FFFFFF;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.4), 0 1px 0 rgba(120, 200, 230, 0.6) inset;
+}
+input[type="submit"].wpcp-button:active,
+input[type="submit"].wpcp-button-active,
+input[type="submit"].wpcp-button-active:hover {
+	box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+	top: 1px;
+}
+.wpcp .error {
+	color: red;
+	padding-left: 4px;
+}
+.wpcp .checked,
+.wpcp .failed {
+	background: url(../images/check.png) no-repeat;
+	display: inline-block;
+	width: 16px;
+	height: 18px;
+	line-height: 25px;
+	font-size: 0;
+	color: transparent;
+	margin: 0 0 0 5px;
+}
+.wpcp .failed {
+	background: url(../images/failed.png) no-repeat;
+	height: 15px;
+	line-height: 22px;
+}
+.wpcp .serial-key-disabled {
+	background: #F9F9F9;
+}

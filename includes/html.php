@@ -71,6 +71,7 @@ function wpcp_overlay_auto() {
 									</p>
 								</td>
 							</tr>
+							<?php if ( wpcp_is_active() ) : ?>
 							<tr>
 								<td><label for="wpcp-collection"><?php _e( 'Collection:', 'wpcp' ); ?></label></td>
 								<td>
@@ -81,6 +82,7 @@ function wpcp_overlay_auto() {
 									</p>
 								</td>
 							</tr>
+							<?php endif; ?>
 						</table>
 						<p class="footer">
 							<input class="button-primary" type="submit" value="Create" />
@@ -168,6 +170,7 @@ function wpcp_overlay_manual() {
 									</p>
 								</td>
 							</tr>
+							<?php if ( wpcp_is_active() ) : ?>
 							<tr>
 								<td><label for="wpcp-collection"><?php _e( 'Collection:', 'wpcp' ); ?></label></td>
 								<td>
@@ -177,8 +180,8 @@ function wpcp_overlay_manual() {
 										<span class="wpcp-cancel-add-collection"></span>
 									</p>
 								</td>
-
 							</tr>
+							<?php endif; ?>
 						</table>
 						<p class="footer">
 							<input class="button-primary" type="submit" value="Create" />
