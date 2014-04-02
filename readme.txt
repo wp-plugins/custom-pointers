@@ -4,9 +4,9 @@ Donate link: http://www.theportlandcompany.com/product/custom-pointers-plugin-fo
 Tags: pointers, awesome wordpress plugin, best wordpress plugin, custom pointers, feature pointers, interactive, plugin training system, pointer collection, pointers, training, training plugin, training software, tutorial, tutorial plugin, tutorials, wordpress, wordpress interactive plugin, wordpress interactive tutorial plugin, wordpress plugin, wordpress training plugin, wordpress training softawre, wordpress training system, wordpress tutorial, wordpress tutorial plugin, tutorial making plugin, wordpress tutorial making plugin, wordpress training plugins
 Requires at least: 3.3
 Tested up to: 3.8.1
-Stable tag: 0.9.6
+Stable tag: 0.9.7
 License: GPLv2
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: http://www.gnu.org/licensexs/gpl-2.0.html
 
 Easily create interactive tutorials for your WordPress Users and it's Plugins and Themes.
 
@@ -14,11 +14,7 @@ Easily create interactive tutorials for your WordPress Users and it's Plugins an
 
 The Custom Pointers Plugin for WordPress introduces an administrative interface that enables Administrators to create a "Collection" custom "Pointers" quickly, easily and in an organized fashion. Fundamentally; it's a way to create interactive tutorials for your WordPress Users in the back end. This is built atop the "Feature Pointers" feature that was introduced in WordPress 3.3.
 
-== Installation ==
-
-Really?
-
-== Frequently Asked Questions ==
+== FAQ ==
 
 [Please refer to the forums.(http://www.theportlandcompany.com/forum/custom-pointers-plugin-wordpress/)]
 
