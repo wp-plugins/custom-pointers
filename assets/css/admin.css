@@ -1,0 +1,55 @@
+/* Clearing floats */
+.clear:after,
+.wrapper:after,
+.format-status .entry-header:after {
+	clear: both;
+}
+.clear:before,
+.clear:after,
+.wrapper:before,
+.wrapper:after,
+.format-status .entry-header:before,
+.format-status .entry-header:after {
+	display: table;
+	content: "";
+}
+
+/* Admin menu */
+#wp-admin-bar-wpcp-parent > a {
+	display: block;
+	height: 28px;
+	background-image: url(../images/logo.png) !important;
+	background-position: 10px center !important;
+	background-repeat: no-repeat !important;
+	padding-left: 30px !important;
+}
+#wp-admin-bar-wpcp-parent > a:hover {
+	background-image: url(../images/logo.png) !important;
+	background-position: 10px center !important;
+	background-repeat: no-repeat !important;
+	padding-left: 30px !important;
+}
+#wp-admin-bar-wpcp-parent > a.running {
+	display: block;
+	height: 28px;
+	background-image: url(../images/logo_active.png) !important;
+	background-position: 10px center !important;
+	background-repeat: no-repeat !important;
+	padding-left: 30px !important;
+}
+#wp-admin-bar-wpcp-parent > a.running:hover {
+	background-image: url(../images/logo_active.png) !important;
+	background-position: 10px center !important;
+	background-repeat: no-repeat !important;
+	padding-left: 30px !important;
+}
+
+/* Contextual Help */
+#tab-panel-wpcp-help-tab .wpcp-start-tour,
+#tab-panel-wpcp-help-tab .wpcp-restart-tour {
+	height: 30px;
+	line-height: 28px;
+	margin: 15px 0;
+	padding-left: 28px;
+	padding-right: 28px;
+}

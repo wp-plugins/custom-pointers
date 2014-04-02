@@ -1,0 +1,10 @@
+.wp-pointer-buttons a.close {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.wp-pointer-buttons a.close:before {
+	background: none;
+}
+.wp-pointer-buttons .back {
+	float: left;
+}
