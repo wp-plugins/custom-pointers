@@ -4,7 +4,7 @@ Donate link: http://www.theportlandcompany.com/product/custom-pointers-plugin-fo
 Tags: awesome wordpress plugin, best wordpress plugin, custom pointers, feature pointers, interactive, plugin training system, pointer collection, pointers, training, training plugin, training software, tutorial, tutorial making plugin, tutorial plugin, tutorials, wordpress, wordpress interactive plugin, wordpress interactive tutorial plugin, wordpress plugin, wordpress training plugin, wordpress training plugins, wordpress training softawre, wordpress training system, wordpress tutorial, wordpress tutorial making plugin, wordpress tutorial plugin, custom pointer, custom pointers gui wordpress, custom pointer gui wordpress, custom pointer ui, custom pointers ui, custom pointers gui, custom pointer ux, custom pointers ux, custom pointer ux wordpress, guide, guides, instruct, instructable, manual, instruction, wordpress manal, wordpress instructions, admin, lessons, support, tips, wordpress admin area, answer, answers, clippy, help, helper, interactive help, learn, learning, Q&A, question, questions, teach, video, videos, walkthrough, wphelp, wpuniversity, tutor, wplifeguard
 Requires at least: 3.3
 Tested up to: 3.8.1
-Stable tag: 0.9.18
+Stable tag: 0.9.19
 License: GPL v3
 License URI: https://www.gnu.org/copyleft/gpl.html
 
@@ -13,9 +13,9 @@ Easily create interactive tutorials for your WordPress Users and it's Plugins an
 == Description ==
 [youtube https://www.youtube.com/watch?v=JZuEgP4n-kk]
 
-The Custom Pointers Plugin for WordPress introduces an administrative interface that enables Administrators to create a "Collection" custom "Pointers" quickly, easily and in an organized fashion.
+The Custom Pointers Plugin for WordPress introduces an interface that enables Administrators to create a group of custom "Pointers" quickly, easily and in an organized fashion.
 
-Fundamentally; it's a way to create interactive tutorials for your WordPress Users in the back end.
+*Fundamentally; it's a way to create interactive tutorials for your WordPress Users* in the back end.
 
 This is built atop the "Feature Pointers" feature that was introduced in WordPress 3.3.
 
@@ -25,10 +25,12 @@ This is built atop the "Feature Pointers" feature that was introduced in WordPre
 1. Users can restart tutorials from the Help tab.
 1. Coming Soon: Import / Export, Visual Editor (for formatting text and adding media within Pointers), Quick Delete Pointers, Quick Reorganize, Auto-Ordering
 
+== Frequently Asked Questions ==
+[You can find our FAQ section on our website.](http://www.theportlandcompany.com/forums/forum/custom-pointers-plugin-wordpress/)
 
 == Screenshots ==
-1. Auto and Manual toggle
-2. Auto mode. Hovering on any element will auto-detect the selector for you
-3. Manual mode. If the selector is very complex, there's a manual mode for that
-4. Dedicated tab in the Help pane to Start or Restart tour
-5. A custom Pointer in action
+1. Auto and Manual toggle.
+2. Auto mode. Hovering on any element will auto-detect the selector for you.
+3. Manual mode. If the selector is very complex, there's a manual mode for that.
+4. Dedicated tab in the Help pane to Start or Restart tour.
+5. A custom Pointer in action.
