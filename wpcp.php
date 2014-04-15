@@ -5,7 +5,7 @@ Plugin URI: http://www.theportlandcompany.com/product/custom-pointers-plugin-for
 Description: The Custom Pointers Plugin for WordPress introduces an administrative interface that enables Administrators to create a "Collection" custom "Pointers" quickly, easily and in an organized fashion. Fundamentally; it's a way to create interactive tutorials for your WordPress Users in the back end. This is built atop the "Feature Pointers" feature that was introduced in WordPress 3.3.
 Author: The Portland Company, Designed by Spencer Hill, Coded by Redeye Adaya
 Author URI: http://www.theportlandcompany.com
-Version: 0.9.14
+Version: 0.9.15
 Copyright: 2014 The Portland Company 
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
@@ -137,6 +137,7 @@ class WP_Custom_Pointers {
     public function uninstall() {
         $options = array(  
                 '_wpcp_version',
+                '_wpcp_status',
                 '_wpcp_preloads_ran',
                 '_wpcp_term_id_self',
                 '_wpcp_status',
@@ -164,6 +165,11 @@ class WP_Custom_Pointers {
         foreach( $collections as $collection ) {
             wp_delete_term( $collection->term_id, 'wpcp_collection' );
         }
+        
+        $user_ID = get_current_user_id();
+        
+        delete_user_option( $user_ID, 'dismiss_coupon_reminder_wpcp' );
+        delete_user_option( $user_ID, 'dismiss_sharing_reminder_wpcp' );
     }
 
     /**
@@ -439,12 +445,19 @@ class WP_Custom_Pointers {
      * @return void
      */
     public function admin_notices() {
-    
+        
+		$dismiss_coupon_reminder_wpcp = get_user_option( 'dismiss_coupon_reminder_wpcp' );
+		$dismiss_sharing_reminder_wpcp = get_user_option( 'dismiss_sharing_reminder_wpcp' );
+		
 		if ( $_GET['dismiss_coupon_reminder_wpcp'] == true ) {
 		    update_user_meta( get_current_user_id(), 'dismiss_coupon_reminder_wpcp', true );
 		    return;
 		}
-		$dismiss_coupon_reminder_wpcp = get_user_option( 'dismiss_coupon_reminder_wpcp' );
+		
+		if ( $_GET['dismiss_sharing_reminder_wpcp'] == true ) {
+		    update_user_meta( get_current_user_id(), 'dismiss_sharing_reminder_wpcp', true );
+		    return;
+		}
 		
 		
 		if ( get_current_screen()->parent_file == 'edit.php?post_type=wpcp_pointer' ) {
@@ -457,7 +470,7 @@ class WP_Custom_Pointers {
             }
             ?>
         
-        <?php if ( !get_option( '_wpcp_status' ) && $dismiss_coupon_reminder_wpcp != 1 ) : ?>
+        <?php if ( $dismiss_coupon_reminder_wpcp == false ) : ?>
             <div class="updated">
             
                 <table>
@@ -491,62 +504,22 @@ class WP_Custom_Pointers {
                                 <li>Quick Delete</li>
                                 <li>Quick Re-Organize</li>
                             </ol>
+                            
+                            <a class="ptp-nag-close button-secondary" href="<?php echo $_SERVER['REQUEST_URI']; ?>&dismiss_coupon_reminder_wpcp=true"><?php _e( 'Dismiss', 'ptp' ); ?></a>
                         </td>
                     </tr>
                     
                 </table>
-                <a class="ptp-nag-close button-secondary" href="<?php echo $_SERVER['REQUEST_URI']; ?>&dismiss_upgrade_reminder=true"><?php _e( 'Dismiss', 'ptp' ); ?></a>
-                
-                <br />
-                <br />
                 
             </div>
             
     		<link rel="canonical" href="http://www.theportlandcompany.com/product/custom-pointers-plugin-for-wordpress/">
-		
-            <!-- Social Media Sharing Utility -->
-    		<div class="updated">
-    		
-                <div id="fb-root"></div>
-                <script>(function(d, s, id) {
-                  var js, fjs = d.getElementsByTagName(s)[0];
-                  if (d.getElementById(id)) return;
-                  js = d.createElement(s); js.id = id;
-                  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-                  fjs.parentNode.insertBefore(js, fjs);
-                }(document, 'script', 'facebook-jssdk'));</script>
-                <script type="text/javascript">
-                  reddit_url = "http://www.theportlandcompany.com/product/custom-pointers-plugin-for-wordpress/";
-                  reddit_title = "Custom Pointers Plugin for WordPress let's Adminstrator's create interactive tutorials to train Users. It's awesome!";
-                  reddit_newwindow = 1;
-                </script>
-    		
-    			<ul class="share clear">
-    				
-    				<?php if ( $args['mini'] ): ?>	
-    				<li><img src="<?php echo $this->plugin_uri . '/extensions/sm-share-buttons/images/share_icon.png'; ?>" alt="Share"/></li>
-    				<?php endif; ?>
-    				
-    				<li>Sharing this Plugin helps fund it! </li>
-
-    				<li><div class="fb-share-button" data-href="http://www.theportlandcompany.com/product/custom-pointers-plugin-for-wordpress/" data-type="button_count"></div></li>
-    				<li><div class="g-plus" data-action="share" data-annotation="bubble" data-height="24"></div>
-</li>
-    				<li><script type="text/javascript" src="http://www.reddit.com/static/button/button1.js"></script></li>
-    				
-    			</ul>
-    			
-                <!-- Place this tag after the last share tag. -->
-                <script type="text/javascript">
-                  (function() {
-                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-                    po.src = 'https://apis.google.com/js/platform.js';
-                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-                  })();
-                </script>
-    			
-    		</div>
         <?php 
+        
+        endif;
+        
+        if ( $dismiss_sharing_reminder_wpcp == false ) : 
+            social_media_sharing_utility();
         endif;
         
         } // End of get_current_screen()->parent_base == 'ptp_bulk_import'

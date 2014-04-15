@@ -30,7 +30,7 @@
                         $( '.wp-pointer:not(:first)' ).find( '.wp-pointer-buttons' ).prepend( '<a href="#" class="button-primary back" >Back</a>' ); // Add back button
 
                     // Change all action to Next except the last
-                    $( '.wp-pointer:not(:last)' ).find( '.close' ).addClass( 'button-primary next' ).text( 'Next' );
+                    $( '.wp-pointer:not(:last)' ).find( '.close' ).addClass( 'button-primary next' ).removeClass( 'close' ).text( 'Next' );
                 }
 
                 $( '.wp-pointer:first' ).addClass( 'wp-current-pointer' );
