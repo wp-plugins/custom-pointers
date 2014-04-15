@@ -212,3 +212,57 @@ function wpcp_verify() {
 
     return true;
 }
+
+
+// Social Media Sharing Utility
+function social_media_sharing_utility() {
+
+    echo '
+    	<div class="updated social-media-sharing-utility">
+            
+            <a class="ptp-nag-close button-secondary" href="' . $_SERVER['REQUEST_URI'] . '&dismiss_sharing_reminder_wpcp=true">Dismiss</a>
+    	
+            <div id="fb-root"></div>
+            <script>(function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, \'script\', \'facebook-jssdk\'));</script>
+            <script type="text/javascript">
+              reddit_url = "http://www.theportlandcompany.com/product/custom-pointers-plugin-for-wordpress/";
+              reddit_title = "Custom Pointers Plugin for WordPress let\'s Adminstrator\'s create interactive tutorials to train Users. It\'s awesome!";
+              reddit_newwindow = 1;
+            </script>
+    	
+    		<ul>
+    ';
+    			if ( $args['mini'] ):
+    echo '<li><img src="' . $this->plugin_uri . '/extensions/sm-share-buttons/images/share_icon.png' . '" alt="Share"/></li>';
+
+    endif;
+    
+    echo '
+    			<li>Sharing this Plugin helps fund it! </li>
+    			
+    			<li><script type="text/javascript" src="http://www.reddit.com/static/button/button1.js"></script></li>
+    			<li><div class="g-plus" data-action="share" data-annotation="bubble" data-height="24"></div>
+    			<li><div class="fb-share-button" data-href="http://www.theportlandcompany.com/product/custom-pointers-plugin-for-wordpress/" data-type="button_count"></div></li>
+    </li>
+    			
+    		</ul>
+    		
+            <!-- Place this tag after the last share tag. -->
+            <script type="text/javascript">
+              (function() {
+                var po = document.createElement(\'script\'); po.type = \'text/javascript\'; po.async = true;
+                po.src = \'https://apis.google.com/js/platform.js\';
+                var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(po, s);
+              })();
+            </script>
+    		
+    	</div>
+    ';
+
+} // End of social_media_sharing_utility()
