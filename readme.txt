@@ -18,7 +18,7 @@ License URI: https://www.gnu.org/copyleft/gpl.html
 Create interactive tutorials for your WordPress Users. This relies on the native WordPress Pointers API!
 
 == Description ==
-[youtube https://www.youtube.com/watch?v=JZuEgP4n-kk]
+[youtube https://www.youtube.com/watch?v=RaJV0EySXuU]
 
 
 The Custom Pointers Plugin for WordPress introduces an interface that enables Administrators the ability to create a group of custom "Pointers" quickly, easily and in an organized fashion.
