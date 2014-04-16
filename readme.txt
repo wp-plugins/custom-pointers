@@ -38,11 +38,7 @@ This is built atop the "Feature Pointers" feature that was introduced in WordPre
 [You can find our FAQ section on our website.](http://www.theportlandcompany.com/forums/forum/custom-pointers-plugin-wordpress/)
 
 == Screenshots ==
-![Pointers - This is what Pointer looks like.](http://www.theportlandcompany.com/wp-content/uploads/2014/04/screenshot-1.png)
-Pointers - This is what Pointer looks like.
-![Auto Mode - Administrators can create new Pointers by hovering over any element which will display an editable Pointer.](http://www.theportlandcompany.com/wp-content/uploads/2014/04/screenshot-2.png)
-Auto Mode - Administrators can create new Pointers by hovering over any element which will display an editable Pointer.
-![Help - In the native WordPress contextual Help tab there is a dedicate option for Users to start or restart Tutorials if they exist for that page.](http://www.theportlandcompany.com/wp-content/uploads/2014/04/screenshot-3.png)
-Help - In the native WordPress contextual Help tab there is a dedicate option for Users to start or restart Tutorials if they exist for that page.
-![Manual Mode - If the Selector is very complex, there's a manual mode for that.](http://www.theportlandcompany.com/wp-content/uploads/2014/04/screenshot-4.png)
-Manual Mode - If the Selector is very complex, there's a manual mode for that.
+1. Pointers - This is what Pointer looks like.
+2. Auto Mode - Administrators can create new Pointers by hovering over any element which will display an editable Pointer.
+3. Help - In the native WordPress contextual Help tab there is a dedicate option for Users to start or restart Tutorials if they exist for that page.
+4. Manual Mode - If the Selector is very complex, there's a manual mode for that.
