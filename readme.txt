@@ -34,7 +34,7 @@ This is built atop the "Feature Pointers" feature that was introduced in WordPre
 [Click Here to Upgrade and Unlock Features in Premium »](http://www.theportlandcompany.com/product/custom-pointers-plugin-for-wordpress/)
 
 1. **Back Button** - User can navigate backward.
-2. **Restart Button** -Users can restart tutorials from the Help tab.
+2. **Restart Button** - Users can restart tutorials from the Help tab.
 3. **Coming Soon** - Import / Export, Visual Editor (for formatting text and adding media within Pointers), Quick Delete Pointers, Quick Reorganize, Auto-Ordering
 
 == Frequently Asked Questions ==
