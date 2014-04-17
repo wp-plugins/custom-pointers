@@ -20,14 +20,12 @@ Create interactive tutorials for your WordPress Users. This relies on the native
 == Description ==
 [youtube https://www.youtube.com/watch?v=RaJV0EySXuU]
 
-
-The Custom Pointers Plugin for WordPress introduces an interface that enables Administrators the ability to create a group of custom "Pointers" quickly, easily and in an organized fashion.
-
-**Fundamentally; it's a way to create interactive tutorials for your WordPress Users** in the back end.
+= Overview =
+Custom Pointers Plugin for WordPress introduces an interface for Administrators create interactive Tutorials for Users on any WordPress website.
 
 This is built atop the "Feature Pointers" feature that was introduced in WordPress 3.3.
 
-= Unlock Features in Premium =
+= Premium Features =
 [Click Here to Upgrade and Unlock Features in Premium »](http://www.theportlandcompany.com/product/custom-pointers-plugin-for-wordpress/)
 
 1. **Back Button** - User can navigate backward.
