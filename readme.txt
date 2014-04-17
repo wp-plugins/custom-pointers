@@ -32,6 +32,11 @@ This is built atop the "Feature Pointers" feature that was introduced in WordPre
 2. **Restart Button** -Users can restart tutorials from the Help tab.
 3. **Coming Soon** - Import / Export, Visual Editor (for formatting text and adding media within Pointers), Quick Delete Pointers, Quick Reorganize, Auto-Ordering
 
+= Back End Features =
+1. **Create Without Code** - The native WordPress Pointers can only be created using code. So we introduce an automated interface for creating them. In an upcoming release developers will be able to export the code for the Tutorials they create so they can include that code in their custom Plugins and Themes!
+2. **Grouping of Pointers** - The native WordPress Pointers do not provide a way for developers to link them together. We introduce this feature so you can have Groups of Pointers (Tutorials).
+3. **Ordering** - Easily change the order of Pointers in a Tutorial.
+
 == Frequently Asked Questions ==
 [You can find our FAQ section on our website.](http://www.theportlandcompany.com/forums/forum/custom-pointers-plugin-wordpress/)
 
