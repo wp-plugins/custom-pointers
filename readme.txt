@@ -7,7 +7,7 @@ Donate link: http://www.theportlandcompany.com/product/custom-pointers-plugin-fo
 
 Requires at least: 3.3
 
-Tested up to: 3.8.1
+Tested up to: 4.3
 
 Stable tag: trunk
 
