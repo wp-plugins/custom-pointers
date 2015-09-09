@@ -5,7 +5,7 @@ Plugin URI: http://www.theportlandcompany.com/product/custom-pointers-plugin-for
 Description: The Custom Pointers Plugin for WordPress introduces an interface that enables Administrators to create a group of custom "Pointers" quickly, easily and in an organized fashion. Fundamentally; it's a way to create interactive tutorials for your WordPress Users in the back end. This is built atop the "Feature Pointers" feature that was introduced in WordPress 3.3.
 Author: The Portland Company, Designed by Spencer Hill, Coded by Redeye Adaya
 Author URI: http://www.theportlandcompany.com
-Version: 0.9.20
+Version: 1.0.1
 Copyright: 2014 The Portland Company 
 License: GPL v3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
@@ -31,7 +31,7 @@ class WP_Custom_Pointers {
     /**
      * @var string
      */
-    public $version = '0.9.0';
+    public $version = '1.0.1';
 
     /**
      * @var string
@@ -85,6 +85,16 @@ class WP_Custom_Pointers {
 
         // Include required files
         add_action( 'plugins_loaded', array( $this, 'includes' ));
+
+        // Version update notice hook
+        add_action( 'update_option__wpcp_version', array($this, 'add_intro_notice') );
+    }
+
+    /**
+     * Add the introductory notice to the 
+     */
+    public function add_intro_notice() {
+        update_user_meta( get_current_user_id(), 'dismiss_first_version_activation_notice_wpcp', false );
     }
 
     /**
@@ -129,6 +139,9 @@ class WP_Custom_Pointers {
      */
     public function install() {
         update_option( '_wpcp_version', $this->version );
+
+        // Add the intro notice
+        $this->add_intro_notice();
     }
 
     /**
@@ -448,6 +461,7 @@ class WP_Custom_Pointers {
         
 		$dismiss_coupon_reminder_wpcp = get_user_option( 'dismiss_coupon_reminder_wpcp' );
 		$dismiss_sharing_reminder_wpcp = get_user_option( 'dismiss_sharing_reminder_wpcp' );
+        $dismiss_first_version_activation_notice_wpcp = get_user_option( 'dismiss_first_version_activation_notice_wpcp' );
 		
 		if ( $_GET['dismiss_coupon_reminder_wpcp'] == true ) {
 		    update_user_meta( get_current_user_id(), 'dismiss_coupon_reminder_wpcp', true );
@@ -458,6 +472,19 @@ class WP_Custom_Pointers {
 		    update_user_meta( get_current_user_id(), 'dismiss_sharing_reminder_wpcp', true );
 		    return;
 		}
+
+        if ( $dismiss_first_version_activation_notice_wpcp == false ) {
+            ?>
+            <div class="updated">
+                <p>
+                    Thank you for using Custom Pointers Plugin. For support please post in our <a href="http://www.theportlandcompany.com/forums/">forums</a>. You may also be interested in our other <a href="http://www.theportlandcompany.com/">Plugins</a> or services including <a href="http://www.theportlandcompany.com/">Website Development</a>, <a href="http://www.theportlandcompany.com/">Custom Wordpress Plugin Development</a>, <a href="http://www.theportlandcompany.com/">Search Marketing and Brand Management</a>.
+                </p>
+            </div>
+            <?php
+            
+            // Deactivate notice
+            update_user_meta( get_current_user_id(), 'dismiss_first_version_activation_notice_wpcp', true );
+        }
 		
 		
 		if ( get_current_screen()->parent_file == 'edit.php?post_type=wpcp_pointer' ) {
@@ -522,7 +549,7 @@ class WP_Custom_Pointers {
             social_media_sharing_utility();
         endif;
         
-        } // End of get_current_screen()->parent_base == 'ptp_bulk_import'
+        } // End of get_current_screen()->parent_base == 'ptp_wpcp_pointer'
     
     }
 
